@@ -1,5 +1,5 @@
 name: Auto merge dependabot
-on: pull_request_target
+on: pull_request
 
 permissions:
   contents: write
@@ -8,7 +8,7 @@ permissions:
 jobs:
   auto-merge-dependabot:
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' }}
+    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'kkocel/dependabot-automation' }}
     steps:
       - name: Approve a PR
         run: gh pr review --approve "$PR_URL"
